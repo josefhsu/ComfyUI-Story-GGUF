@@ -1,4 +1,4 @@
-# ComfyUI-Story-GGUF
+# ComfyUI-Story-GGUF (Optimized)
 
 [中文](#中文) | [English](#english)
 
@@ -7,54 +7,54 @@
 ## 中文
 
 ### 簡介
-這是一個為 ComfyUI 設計的自定義節點，旨在利用**本地 GGUF 格式的大型語言模型 (LLM)** 自動生成故事分鏡描述。它不需要串接 Ollama 或其他外部 API，完全在本地運行。
+這是一個強大的 ComfyUI 自定義節點，專為**本地 GGUF 模型**設計，支援分鏡故事生成。本次優化參考了 `GGUFInference` 節點，加入了自動偵測、視覺模型 (VLM) 支援以及進階採樣功能。
 
 ### 主要功能
-- **內置 LLM 支持**: 使用 `llama-cpp-python` 直接加載 `.gguf` 模型。
-- **分鏡生成器**: 自動將故事概念拆解為指定數量的分鏡。
-- **視覺化描述**: 生成適合圖像生成模型（如 Stable Diffusion）使用的畫面描述。
-- **JSON 輸出**: 支持 JSON 格式輸出，便於後續自動化處理。
+- **自動偵測模型**: 自動掃描 `models/LLM`, `models/text_encoders`, `models/clip` 目錄下的 `.gguf` 與 `mmproj` 檔案。
+- **視覺模型 (VLM) 支援**: 支援傳入圖片，讓 LLM 根據畫面內容生成分鏡（需搭配 `mmproj` 檔案）。
+- **進階採樣控制**: 加入 `Seed`, `Temperature`, `Top-P`, `Top-K` 等參數，精確控制生成結果。
+- **智慧記憶體管理**: 支援 `keep_model_loaded` 選項，避免頻繁加載跳轉。
+- **噪音清理**: 自動移除 `<think>` 標籤，適配思考型模型。
 
 ### 安裝步驟
-1. 將資料夾移動至 ComfyUI 的 `custom_nodes` 目錄。
-2. 開啟終端機並安裝依賴：
+1. 進入 `ComfyUI/custom_nodes` 資料夾。
+2. 安裝依賴：
    ```bash
-   pip install llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu121
+   pip install -r requirements.txt
    ```
-   *(請根據您的 CUDA 版本選擇對應鏈接，或者使用 `cpu` 版本)*
+   *註：若需 GPU 加速，請參考 llama-cpp-python 官方文檔安裝對應 CUDA 版本的 wheel。*
 
 ### 使用方法
-1. **GGUF LLM Loader (Story)**: 加載您的 GGUF 模型路徑並設置 `n_gpu_layers`。例如 `models/LLM/your_model.gguf`。
-2. **Storyboard Generator (GGUF)**: 輸入故事概念、分鏡數量與風格。
-3. 接上文字顯示節點查看結果。
+1. **StoryLLMLoader**: 從下拉選單選擇模型與 `mmproj`（若使用視覺模型）。
+2. **StoryBoardGenerator**: 輸入故事大綱，可選連接 `image` 分鏡參考圖。
 
 ---
 
 ## English
 
 ### Introduction
-A custom node for ComfyUI designed to generate storyboard descriptions using **local GGUF Large Language Models (LLM)**. Run your LLMs directly within ComfyUI without needing Ollama or external APIs.
+A powerful ComfyUI custom node for **local GGUF model** storyboard generation. Optimized with features like auto-detection, Vision-Language Model (VLM) support, and advanced sampling.
 
 ### Key Features
-- **Embedded LLM Support**: Load `.gguf` models directly via `llama-cpp-python`.
-- **Storyboard Generator**: Automatically break down story concepts into a specified number of scenes.
-- **Visual Descriptions**: Generate detailed visual prompts suitable for image generators like Stable Diffusion.
-- **Structured Output**: Provides both formatted text and JSON array outputs.
+- **Auto-detection**: Automatically scans `models/LLM`, `models/text_encoders`, and `models/clip` for `.gguf` and `mmproj` files.
+- **Vision Support (VLM)**: Generate stories based on input images using vision-language models (requires `mmproj`).
+- **Advanced Sampling**: Full control over `Seed`, `Temperature`, `Top-P`, and `Top-K`.
+- **Memory Management**: Maintain models in memory using `keep_model_loaded` for faster consecutive runs.
+- **Thinking Tag Clean-up**: Automatically strips `<think>` tags from output.
 
 ### Installation
-1. Move this folder to your ComfyUI `custom_nodes` directory.
-2. Install dependencies via terminal:
+1. Navigate to `ComfyUI/custom_nodes`.
+2. Install dependencies:
    ```bash
-   pip install llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu121
+   pip install -r requirements.txt
    ```
-   *(Select the appropriate link for your CUDA version or use `cpu`)*
+   *Note: For GPU acceleration, install the appropriate llama-cpp-python wheel for your CUDA version.*
 
-### How to Use
-1. **GGUF LLM Loader (Story)**: Load your GGUF model path and configure `n_gpu_layers`.
-2. **Storyboard Generator (GGUF)**: Enter your story concept, set page count and style.
-3. Connect to a text display node to view results.
+### Usage
+1. **StoryLLMLoader**: Select your model and optional `mmproj` from the dropdown.
+2. **StoryBoardGenerator**: Enter your story concept and optionally connect an reference `image`.
 
 ---
 
 ### Workflow Example
-An example workflow `workflow_example.json` is included in the repository.
+An updated example `workflow_example.json` is provided in the repository.

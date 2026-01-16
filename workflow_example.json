@@ -11,7 +11,7 @@
             ],
             "size": [
                 300,
-                150
+                200
             ],
             "flags": {},
             "order": 0,
@@ -32,21 +32,22 @@
                 "Node name for S&R": "StoryLLMLoader"
             },
             "widgets_values": [
-                "models/LLM/YourModel.gguf",
+                "YourModel.gguf",
                 2048,
-                33
+                -1,
+                "None"
             ]
         },
         {
             "id": 2,
             "type": "StoryBoardGenerator",
             "pos": [
-                500,
+                450,
                 100
             ],
             "size": [
                 400,
-                300
+                450
             ],
             "flags": {},
             "order": 1,
@@ -56,6 +57,11 @@
                     "name": "llm_model",
                     "type": "LLM_MODEL",
                     "link": 1
+                },
+                {
+                    "name": "image",
+                    "type": "IMAGE",
+                    "link": null
                 }
             ],
             "outputs": [
@@ -72,6 +78,13 @@
                     "links": [],
                     "shape": 3,
                     "slot_index": 1
+                },
+                {
+                    "name": "used_seed",
+                    "type": "INT",
+                    "links": [],
+                    "shape": 3,
+                    "slot_index": 2
                 }
             ],
             "properties": {
@@ -80,7 +93,13 @@
             "widgets_values": [
                 "一個關於機器人在荒廢城市中尋找花朵的故事。",
                 4,
-                "賽博龐克, 廢土風格, 電影感照明, 8k"
+                "賽博龐克, 廢土風格, 電影感照明, 8k",
+                1024,
+                0.7,
+                0.9,
+                40,
+                0,
+                false
             ]
         }
     ],
