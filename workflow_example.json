@@ -32,7 +32,7 @@
                 "Node name for S&R": "StoryLLMLoader"
             },
             "widgets_values": [
-                "models/llm/checkpoints/YourModel.gguf",
+                "models/LLM/YourModel.gguf",
                 2048,
                 33
             ]

@@ -13,7 +13,7 @@ class StoryLLMLoader:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "model_path": ("STRING", {"default": "models/llm/checkpoints/model.gguf"}),
+                "model_path": ("STRING", {"default": "models/LLM/model.gguf"}),
                 "n_ctx": ("INT", {"default": 2048, "min": 512, "max": 32768, "step": 512}),
                 "n_gpu_layers": ("INT", {"default": 0, "min": 0, "max": 100, "step": 1}),
             }

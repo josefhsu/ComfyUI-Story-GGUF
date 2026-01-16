@@ -24,7 +24,7 @@
    *(請根據您的 CUDA 版本選擇對應鏈接，或者使用 `cpu` 版本)*
 
 ### 使用方法
-1. **GGUF LLM Loader (Story)**: 加載您的 GGUF 模型路徑並設置 `n_gpu_layers`。
+1. **GGUF LLM Loader (Story)**: 加載您的 GGUF 模型路徑並設置 `n_gpu_layers`。例如 `models/LLM/your_model.gguf`。
 2. **Storyboard Generator (GGUF)**: 輸入故事概念、分鏡數量與風格。
 3. 接上文字顯示節點查看結果。
 
