@@ -24,14 +24,43 @@ class StoryLLMLoader:
     def INPUT_TYPES(s):
         # Scan multiple directories for GGUF models
         model_list = []
-        for folder in ["text_encoders", "clip", "LLM", "checkpoints"]:
+        # Areas where users usually put GGUF or LLM files
+        folders_to_scan = ["LLM", "text_encoders", "clip", "checkpoints", "diffusion_models", "unet"]
+        
+        print("\n--- Story GGUF Node: Scanning for models ---")
+        for folder in folders_to_scan:
             try:
+                # get_filename_list typically returns a list of relative paths
                 files = folder_paths.get_filename_list(folder)
-                model_list.extend([f for f in files if f.endswith(".gguf")])
-            except:
+                found = [f for f in files if f.lower().endswith(".gguf")]
+                if found:
+                    print(f"  [+] Found {len(found)} models in '{folder}'")
+                    # We store them as "folder/filename" if not in the primary LLM folder
+                    for f in found:
+                        model_list.append(f)
+            except Exception as e:
+                # print(f"  [-] Skip scanning '{folder}': {str(e)}")
                 pass
         
-        # Scan for mmproj files (usually in clip or text_encoders)
+        # Fallback: manually scan models/LLM if folder_paths failed to register it correctly
+        try:
+            manual_path = os.path.join(folder_paths.models_dir, "LLM")
+            if os.path.exists(manual_path):
+                raw_files = os.listdir(manual_path)
+                manual_found = [f for f in raw_files if f.lower().endswith(".gguf")]
+                if manual_found:
+                    print(f"  [+] Found {len(manual_found)} models in manual scan of 'models/LLM'")
+                    model_list.extend(manual_found)
+        except:
+            pass
+
+        model_list = sorted(list(set(model_list)))
+        if not model_list:
+            print("  [!] WARNING: No .gguf models found in any scanned folder!")
+            model_list = ["No .gguf models found - put them in models/LLM/"]
+        
+        print("--- End of Scan ---\n")
+
         mmproj_list = ["None"]
         for folder in ["clip", "text_encoders", "LLM"]:
             try:
@@ -42,7 +71,7 @@ class StoryLLMLoader:
 
         return {
             "required": {
-                "model_name": (sorted(list(set(model_list))), ),
+                "model_name": (model_list, ),
                 "n_ctx": ("INT", {"default": 2048, "min": 512, "max": 32768, "step": 512}),
                 "n_gpu_layers": ("INT", {"default": -1, "min": -1, "max": 100, "step": 1}),
             },
