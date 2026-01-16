@@ -56,5 +56,10 @@ A powerful ComfyUI custom node for **local GGUF model** storyboard generation. O
 
 ---
 
-### Workflow Example
-An updated example `workflow_example.json` is provided in the repository.
+### Workflow Examples
+1.  **workflow_example.json**: Basic GGUF LLM inference and storyboard text generation.
+2.  **full_integration_workflow.json**: Full pipeline from LLM storyboard generation to Stable Diffusion image generation.
+
+### 示範工作流
+1.  **workflow_example.json**: 基礎 GGUF LLM 推理與分鏡文本生成。
+2.  **full_integration_workflow.json**: 完整流水線，從 LLM 分鏡生成到 Stable Diffusion 圖像產出。
