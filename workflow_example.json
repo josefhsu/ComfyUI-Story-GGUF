@@ -1,6 +1,6 @@
 {
-    "last_node_id": 4,
-    "last_link_id": 3,
+    "last_node_id": 2,
+    "last_link_id": 1,
     "nodes": [
         {
             "id": 1,
@@ -9,10 +9,10 @@
                 100,
                 100
             ],
-            "size": {
-                "0": 300,
-                "1": 150
-            },
+            "size": [
+                300,
+                150
+            ],
             "flags": {},
             "order": 0,
             "mode": 0,
@@ -41,13 +41,13 @@
             "id": 2,
             "type": "StoryBoardGenerator",
             "pos": [
-                450,
+                500,
                 100
             ],
-            "size": {
-                "0": 400,
-                "1": 300
-            },
+            "size": [
+                400,
+                300
+            ],
             "flags": {},
             "order": 1,
             "mode": 0,
@@ -78,37 +78,9 @@
                 "Node name for S&R": "StoryBoardGenerator"
             },
             "widgets_values": [
-                "A cyberpunk detective searching for a lost android in a neon city.",
+                "一個關於機器人在荒廢城市中尋找花朵的故事。",
                 4,
-                "Cyberpunk, Neon, Noir, Cinematic Lighting"
-            ]
-        },
-        {
-            "id": 3,
-            "type": "ShowText",
-            "pos": [
-                900,
-                100
-            ],
-            "size": {
-                "0": 400,
-                "1": 400
-            },
-            "flags": {},
-            "order": 2,
-            "mode": 0,
-            "inputs": [
-                {
-                    "name": "text",
-                    "type": "STRING",
-                    "link": null,
-                    "widget": {
-                        "name": "text"
-                    }
-                }
-            ],
-            "widgets_values": [
-                "Connect output here to see result"
+                "賽博龐克, 廢土風格, 電影感照明, 8k"
             ]
         }
     ],
